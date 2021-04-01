@@ -860,7 +860,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Hahn.ApplicationProcess.February2021.Data >= 1.0.0",
+      "FluentValidation >= 9.5.3",
       "Hahn.ApplicationProcess.February2021.Domain >= 1.0.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.10.13",
       "Swashbuckle.AspNetCore >= 6.1.1"
@@ -893,9 +893,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Admin\\Documents\\ApplicationProcess\\Hahn.ApplicationProcess.Application\\Hahn.ApplicationProcess.February2021.Data\\Hahn.ApplicationProcess.February2021.Data.csproj": {
-              "projectPath": "C:\\Users\\Admin\\Documents\\ApplicationProcess\\Hahn.ApplicationProcess.Application\\Hahn.ApplicationProcess.February2021.Data\\Hahn.ApplicationProcess.February2021.Data.csproj"
-            },
             "C:\\Users\\Admin\\Documents\\ApplicationProcess\\Hahn.ApplicationProcess.Application\\Hahn.ApplicationProcess.February2021.Domain\\Hahn.ApplicationProcess.February2021.Domain.csproj": {
               "projectPath": "C:\\Users\\Admin\\Documents\\ApplicationProcess\\Hahn.ApplicationProcess.Application\\Hahn.ApplicationProcess.February2021.Domain\\Hahn.ApplicationProcess.February2021.Domain.csproj"
             }
@@ -912,6 +909,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "FluentValidation": {
+            "target": "Package",
+            "version": "[9.5.3, )"
+          },
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
             "target": "Package",
             "version": "[1.10.13, )"
