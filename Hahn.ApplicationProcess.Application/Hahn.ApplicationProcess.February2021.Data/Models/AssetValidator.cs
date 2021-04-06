@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using FluentValidation.Validators;
-using Hahn.ApplicationProcess.February2021.Domain.Models;
+using Hahn.ApplicationProcess.February2021.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1.Models
+namespace Hahn.ApplicationProcess.February2021.Data.Models
 {
-    class AssetValidator : AbstractValidator<Asset>
+    public class AssetValidator : AbstractValidator<Asset>
     {
         public AssetValidator()
         {

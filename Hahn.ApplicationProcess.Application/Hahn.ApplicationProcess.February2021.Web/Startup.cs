@@ -1,3 +1,5 @@
+using Hahn.ApplicationProcess.February2021.Data.Models;
+using Hahn.ApplicationProcess.February2021.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Hahn.ApplicationProcess.February2021.Web
 {
@@ -26,7 +31,10 @@ namespace Hahn.ApplicationProcess.February2021.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
 
+            services.AddScoped<IAssetRepository, AssetRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

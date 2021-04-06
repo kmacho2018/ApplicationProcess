@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net5.0": {
-      "FluentValidation/9.5.3": {
+      "FluentValidation/9.5.4": {
         "type": "package",
         "compile": {
           "lib/net5.0/FluentValidation.dll": {}
@@ -174,6 +174,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "FluentValidation": "9.5.4",
           "Microsoft.EntityFrameworkCore": "5.0.4"
         },
         "compile": {
@@ -186,15 +187,15 @@
     }
   },
   "libraries": {
-    "FluentValidation/9.5.3": {
-      "sha512": "BataCga/cwQUeo9yy8dzDnihx3N5l1+wj6kEQOkdQ5FIsSFcWD/UjdPJ2jNKODSPAtYuDH5KLM5IBrr1UCNf/A==",
+    "FluentValidation/9.5.4": {
+      "sha512": "dnAz4PUtSSa+8EGWDUmEZujOa9rvzxln4BgokZZfO2Gbcj0612TMISU4vkvL60qIy5DI/sDF9Oy1iMXr7sJW3A==",
       "type": "package",
-      "path": "fluentvalidation/9.5.3",
+      "path": "fluentvalidation/9.5.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "fluent-validation-icon.png",
-        "fluentvalidation.9.5.3.nupkg.sha512",
+        "fluentvalidation.9.5.4.nupkg.sha512",
         "fluentvalidation.nuspec",
         "lib/net461/FluentValidation.dll",
         "lib/net461/FluentValidation.xml",
@@ -568,7 +569,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "FluentValidation >= 9.5.3",
+      "FluentValidation >= 9.5.4",
       "Hahn.ApplicationProcess.February2021.Data >= 1.0.0"
     ]
   },
@@ -617,7 +618,7 @@
         "dependencies": {
           "FluentValidation": {
             "target": "Package",
-            "version": "[9.5.3, )"
+            "version": "[9.5.4, )"
           }
         },
         "imports": [
