@@ -1,7 +1,9 @@
-﻿using Hahn.ApplicationProcess.February2021.Data.Models;
+﻿using FluentValidation.Results;
+using Hahn.ApplicationProcess.February2021.Data.Models;
 using Hahn.ApplicationProcess.February2021.Domain.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,12 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
     public class AssetsController : ControllerBase
     {
         private readonly IAssetRepository AssetRepository;
+        private readonly ILogger<AssetsController> _logger;
 
-        public AssetsController(IAssetRepository assetRepository)
+        public AssetsController(ILogger<AssetsController> logger, IAssetRepository assetRepository)
         {
             this.AssetRepository = assetRepository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -25,9 +29,10 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
         {
             try
             {
+                _logger.LogInformation("Start to GetAssets");
                 return Ok(await AssetRepository.GetAssets());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
@@ -70,12 +75,26 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var createdAsset = await AssetRepository.AddAsset(Asset);
+                AssetValidator validator = new AssetValidator();
+                ValidationResult results = validator.Validate(Asset);
 
-                return CreatedAtAction(nameof(GetAsset), new { id = createdAsset.Id },
-                    createdAsset);
+                if (!results.IsValid)
+                {
+                    foreach (var failure in results.Errors)
+                    {
+                        Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                    }
+                    return BadRequest(string.Join("", results.Errors));
+                }
+                else
+                {
+                    var createdAsset = await AssetRepository.AddAsset(Asset);
+
+                    return CreatedAtAction(nameof(GetAsset), new { id = createdAsset.Id },
+                        createdAsset);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
@@ -99,7 +118,21 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
                     return NotFound($"Asset with Id = {id} not found");
                 }
 
-                return await AssetRepository.UpdateAsset(Asset);
+                AssetValidator validator = new AssetValidator();
+                ValidationResult results = validator.Validate(Asset);
+
+                if (!results.IsValid)
+                {
+                    foreach (var failure in results.Errors)
+                    {
+                        Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                    }
+                    return BadRequest(string.Join("", results.Errors));
+                }
+                else
+                {
+                    return await AssetRepository.UpdateAsset(Asset);
+                }
             }
             catch (Exception)
             {
