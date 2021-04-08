@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hahn.ApplicationProcess.February2021.Web.Controllers
@@ -44,6 +42,8 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
         {
             try
             {
+                _logger.LogInformation("Searching the assets by id in the database...");
+
                 var result = await AssetRepository.GetAssetById(id);
 
                 if (result == null) return NotFound();
@@ -66,6 +66,7 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
                 {
                     return BadRequest();
                 }
+                _logger.LogInformation("Checking if the email is associated with any record.");
 
                 var emp = AssetRepository.GetAssetByEmail(Asset.EMailAdressOfDepartment);
 
@@ -84,10 +85,13 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
                     {
                         Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
                     }
+                    _logger.LogInformation("Some validation errors have been generated. " + string.Join("", results.Errors));
+
                     return BadRequest(string.Join("", results.Errors));
                 }
                 else
                 {
+                    _logger.LogInformation("Creating new Asset.");
                     var createdAsset = await AssetRepository.AddAsset(Asset);
 
                     return CreatedAtAction(nameof(GetAsset), new { id = createdAsset.Id },
@@ -106,6 +110,8 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
         {
             try
             {
+                _logger.LogInformation("Error Updating Asset. -> Asset ID mismatch");
+
                 if (id != Asset.Id)
                 {
                     return BadRequest("Asset ID mismatch");
@@ -115,6 +121,8 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
 
                 if (AssetToUpdate == null)
                 {
+                    _logger.LogInformation($"Error Updating Asset. -> Asset with Id = {id} not found");
+
                     return NotFound($"Asset with Id = {id} not found");
                 }
 
@@ -131,6 +139,8 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
                 }
                 else
                 {
+                    _logger.LogInformation($"Updating Asset...");
+
                     return await AssetRepository.UpdateAsset(Asset);
                 }
             }
@@ -150,8 +160,12 @@ namespace Hahn.ApplicationProcess.February2021.Web.Controllers
 
                 if (AssetToDelete == null)
                 {
+                    _logger.LogInformation($"Asset with Id = {id} not found");
+
                     return NotFound($"Asset with Id = {id} not found");
                 }
+
+                _logger.LogInformation("Deleting Asset...");
 
                 return await AssetRepository.DeleteAsset(id);
             }

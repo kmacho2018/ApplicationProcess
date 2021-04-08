@@ -1,10 +1,8 @@
 ﻿using Hahn.ApplicationProcess.February2021.Data.Models;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Hahn.ApplicationProcess.February2021.Domain.Services
 {
@@ -34,7 +32,6 @@ namespace Hahn.ApplicationProcess.February2021.Domain.Services
                 .FirstOrDefault(e => e.EMailAdressOfDepartment == email);
         }
 
-
         public async Task<Asset> AddAsset(Asset Asset)
         {
             var result = await appDbContext.Assets.AddAsync(Asset);
@@ -54,7 +51,6 @@ namespace Hahn.ApplicationProcess.February2021.Domain.Services
                 result.EMailAdressOfDepartment = Asset.EMailAdressOfDepartment;
                 result.PurchaseDate = Asset.PurchaseDate;
                 result.Broken = Asset.Broken;
-                // result.Gender = Asset.Gender;
 
                 await appDbContext.SaveChangesAsync();
 

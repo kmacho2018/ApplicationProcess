@@ -1,18 +1,11 @@
 ﻿using FluentValidation;
 using FluentValidation.Validators;
-using Hahn.ApplicationProcess.February2021.Data.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hahn.ApplicationProcess.February2021.Data.Models
 {
-
     public class AssetValidator : AbstractValidator<Asset>
     {
         public AssetValidator()
@@ -24,9 +17,9 @@ namespace Hahn.ApplicationProcess.February2021.Data.Models
             RuleFor(asset => asset.Department).IsInEnum();
             RuleFor(asset => asset.CountryOfDepartment).Must(IsValidCountry).WithMessage(" Select a valid 'country'");
         }
+
         public bool IsValidCountry(Asset asset, string me)
         {
-
             var url = $"http://restcountries.eu/rest/v2/name/" + asset.CountryOfDepartment + "?fullText=true";
 
             var request = (HttpWebRequest)WebRequest.Create(url);

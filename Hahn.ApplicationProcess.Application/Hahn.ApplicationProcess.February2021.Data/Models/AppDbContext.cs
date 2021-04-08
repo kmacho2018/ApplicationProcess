@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hahn.ApplicationProcess.February2021.Data.Models
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +24,7 @@ namespace Hahn.ApplicationProcess.February2021.Data.Models
                 PurchaseDate = DateTime.Now
             });
         }
-        public DbSet<Asset> Assets { get; set; }
 
+        public DbSet<Asset> Assets { get; set; }
     }
 }
