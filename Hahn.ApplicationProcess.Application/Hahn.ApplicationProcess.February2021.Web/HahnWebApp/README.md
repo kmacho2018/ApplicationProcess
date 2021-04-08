@@ -1,12 +1,3 @@
-# `Hahn.ApplicationProcess.Application` 
-
-Hahn.ApplicationProcess.February2021.Data - .Net 5.0 Class Library handles every DataAccess also HTTPDataAccess for country validation, uses RepositoryPattern and UnitOfWork Pattern
-
-Hahn.ApplicationProcess.February2021.Web- .Net 5.0 Kestrel Host, Hosts the static content as well as a WebAPI for the Frontend
-
-Hahn.ApplicationProcess.February2021.Domain – .Net 5.0 Class Library Containing Business Logic, Validators, Interfaces and Models
-
-
 # `HahnWebApp`
 
 This project is bootstrapped by [aurelia-cli](https://github.com/aurelia/cli).
@@ -14,8 +5,6 @@ This project is bootstrapped by [aurelia-cli](https://github.com/aurelia/cli).
 For more information, go to https://aurelia.io/docs/cli/webpack
 
 ## Run dev app
-
-First you go to the path ~/Hahn.ApplicationProcess.February2021.Web/HahnWebApp
 
 Run `npm start`, then open `http://localhost:8080`
 
